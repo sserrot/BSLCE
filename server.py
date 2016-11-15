@@ -21,8 +21,7 @@ def allowed_file(filename):
 
 # Index Initialized
 
-
-@app.route("/", methods=['GET', 'POST'])
+@app.route('/')
 def index():
     if request.method == 'POST':
         file = request.files['file']
@@ -35,13 +34,6 @@ def index():
             BSLC_attendance.main(filename, sender_address, password, subject, text_body)  # Send the emails from test file
             return redirect(url_for('index'))
     return render_template('file_upload.html')
-
-
-@app.route('/email_sent', methods=['GET', 'POST'])
-def foo(x=None, y=None):
-    BSLC_attendance.main()
-    return render_template('email_sent.html')  # call main from BSLC_attendance
-
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5001, debug=True)

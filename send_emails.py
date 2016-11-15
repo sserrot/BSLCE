@@ -13,8 +13,8 @@ def send_emails(sender_address, password, subject, text_body):
     subject = subject
     text_body = text_body
 
-    sender_address = 'santiago6695@gmail.com'
-    password = 'krhujohjkhvphbip'
+    sender_address = '@gmail.com'
+    password = 'password'
     subject = 'hello'
     text_body = 'testing'
 

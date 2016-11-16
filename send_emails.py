@@ -6,7 +6,7 @@ nonAttendantStudents = find_non_attendants.main()
 # create a text/plain message
 
 
-def send_emails(sender_address, password, subject, text_body):
+def email(sender_address, password, subject, text_body):
 
     sender_address = sender_address
     password = password
@@ -43,7 +43,7 @@ def send_emails(sender_address, password, subject, text_body):
 
 
 def main(file, sender_address, password, subject, text_body):
-    send_emails(sender_address=sender_address, password=password, subject=subject, text_body=text_body)
+    email(sender_address=sender_address, password=password, subject=subject, text_body=text_body)
 
 if __name__ == '__main__':
     main(file='foo.xlsx', sender_address='no@gmail.com', password='pass', subject='subj', text_body='text_body')

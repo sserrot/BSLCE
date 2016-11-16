@@ -1,8 +1,14 @@
 # BSLCE
 Bentley Service Learning Center Attendance
 
-Run the flask server.
+Run the GUI
 
-Input an excel file similar to the test.xlsx format and the email you would like to send.
+Input your gmail and your gmail password.
 
-Once you hit send email, it will send an email to all students that missed attendance and an email to the sending address of all those students as well.
+Input the subject and body of the email you would like to send.
+
+Input the attendance excel file and then the master excel file.
+
+Click Run Program.
+
+The program will search for the students who are in the master sheet but did not attend and send them the email you input.

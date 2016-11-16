@@ -1,12 +1,13 @@
+"""
+RETURNS A LIST OF DICTIONARIES CONTAINING ALL PROGRAM MANAGERS INFORMATION
+"""
+
 from openpyxl import load_workbook  # import openpyxl for excel manipulation
 
-# RETURNS A LIST OF DICTIONARIES CONTAINING ALL PROGRAM MANAGERS INFORMATIONS
 
-wb = load_workbook('master.xlsx')
-sheet = wb.get_sheet_by_name(name='Sheet1')
-
-
-def master():
+def master(file):
+    wb = load_workbook(file)
+    sheet = wb.get_sheet_by_name(name='Sheet1')
     master_list = []
     pm_id = ''
     first_name = ''

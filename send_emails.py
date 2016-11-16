@@ -1,22 +1,17 @@
 import find_non_attendants
 import smtplib  # import smtplib to send email
 
-nonAttendantStudents = find_non_attendants.main()
-
 # create a text/plain message
 
 
-def email(sender_address, password, subject, text_body):
+def email(sender_address, password, subject, text_body, non_attendant_students):
 
     sender_address = sender_address
     password = password
     subject = subject
     text_body = text_body
+    non_attendant_students = non_attendant_students
 
-    sender_address = '@gmail.com'
-    password = 'password'
-    subject = 'hello'
-    text_body = 'testing'
 
     smtp_obj = smtplib.SMTP('smtp.gmail.com', 587)
     smtp_obj.ehlo()
@@ -24,7 +19,7 @@ def email(sender_address, password, subject, text_body):
     smtp_obj.login(sender_address, password)
 
 # calling str on text_body creates problems with unicode ... TODO - fix this
-    for name, email in nonAttendantStudents.items():
+    for name, email in non_attendant_students.items():
         body = ("Subject:" + str(subject) + "\n" + "Dear {}, \n\n" + str(text_body)).format(name)
         print('Sending email to %s...' % email)
         send_mail_status = smtp_obj.sendmail(sender_address, email, body)
@@ -32,7 +27,7 @@ def email(sender_address, password, subject, text_body):
         if send_mail_status != {}:
             print('There was a problem sending email to %s: %s' % (email, send_mail_status))
     all_body = "Subject:" + str(subject) + "\n" + "Dear BSLCE, \n\n"
-    for name in nonAttendantStudents.items():
+    for name in non_attendant_students.items():
         all_body = all_body + ' ' + name[0] + ";"
 
     send_all_status = smtp_obj.sendmail(sender_address, sender_address, all_body)

@@ -2,13 +2,10 @@ from openpyxl import load_workbook  # import openpyxl for excel manipulation
 
 # RETURNS A LIST OF IDS OF PROGRAM MANAGERS THAT DID NOT ATTEND
 
-# def excel_parse(file):
-#     wb = load_workbook(file)
-wb = load_workbook('attendance.xlsx')
-sheet = wb.get_sheet_by_name(name='Sheet1')
 
-
-def attended():
+def attended(file):
+    wb = load_workbook(file)
+    sheet = wb.get_sheet_by_name(name='Sheet1')
     col = 3  # Default ID column is 3
     attendant_id = []
     pm_id = ''

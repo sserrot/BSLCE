@@ -26,7 +26,7 @@ def email(sender_address, password, subject, text_body, non_attendant_students):
 
         if send_mail_status != {}:
             print('There was a problem sending email to %s: %s' % (email, send_mail_status))
-    all_body = "Subject:" + str(subject) + "\n" + "Dear BSLCE, \n\n"
+    all_body = "Subject:" + str(subject) + "\n" + "Dear self, \n\n"
     for name in non_attendant_students.items():
         all_body = all_body + ' ' + name[0] + ";"
 
@@ -41,4 +41,4 @@ def main(file, sender_address, password, subject, text_body):
     email(sender_address=sender_address, password=password, subject=subject, text_body=text_body)
 
 if __name__ == '__main__':
-    main(file='foo.xlsx', sender_address='no@gmail.com', password='pass', subject='subj', text_body='text_body')
+    main(file='foo.xlsx', sender_address='no@gmail.com', password='pass', subject='subj', text_body='text_body', non_attendant_students='test')

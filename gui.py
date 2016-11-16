@@ -37,10 +37,10 @@ class App(QMainWindow):
         self.pass_text.move(60, 110)
         # Subject of Email
         self.subject = QLineEdit(self)
-        self.subject.move(30, 110)
+        self.subject.move(90, 110)
         # Body of Email
         self.subject = QLineEdit(self)
-        self.subject.move(30, 110)
+        self.subject.move(100, 110)
 
         # Attendance excel file
         att_button = QPushButton('Attendance File', self)

@@ -4,12 +4,12 @@ import smtplib  # import smtplib to send email
 # create a text/plain message
 
 
-def email(sender_address, password, subject, text_body, non_attendant_students):
+def email(sender_address, password, subject, body_text, non_attendant_students):
 
     sender_address = sender_address
     password = password
     subject = subject
-    text_body = text_body
+    body_text = body_text
     non_attendant_students = non_attendant_students
 
 
@@ -18,9 +18,9 @@ def email(sender_address, password, subject, text_body, non_attendant_students):
     smtp_obj.starttls()
     smtp_obj.login(sender_address, password)
 
-# calling str on text_body creates problems with unicode ... TODO - fix this
+# calling str on body_text creates problems with unicode ... TODO - fix this
     for name, email in non_attendant_students.items():
-        body = ("Subject:" + str(subject) + "\n" + "Dear {}, \n\n" + str(text_body)).format(name)
+        body = ("Subject:" + str(subject) + "\n" + "Dear {}, \n\n" + str(body_text)).format(name)
         print('Sending email to %s...' % email)
         send_mail_status = smtp_obj.sendmail(sender_address, email, body)
 
@@ -37,8 +37,8 @@ def email(sender_address, password, subject, text_body, non_attendant_students):
     smtp_obj.quit()
 
 
-def main(file, sender_address, password, subject, text_body):
-    email(sender_address=sender_address, password=password, subject=subject, text_body=text_body)
+def main(file, sender_address, password, subject, body_text):
+    email(sender_address=sender_address, password=password, subject=subject, body_text=body_text)
 
 if __name__ == '__main__':
-    main(file='foo.xlsx', sender_address='no@gmail.com', password='pass', subject='subj', text_body='text_body', non_attendant_students='test')
+    main(file='foo.xlsx', sender_address='no@gmail.com', password='pass', subject='subj', body_text='body_text', non_attendant_students='test')

@@ -9,11 +9,14 @@ $ run_program
 """
 
 import sys
+import threading
 from PyQt5.QtWidgets import QLineEdit, QPushButton, QFileDialog, QApplication, QMainWindow, QTextEdit, QLabel
-import read_attendance_file
-import read_master_file
 import find_non_attendants
+import excel_parse
 import send_emails
+import find_path # find a better way to do this
+
+
 
 class App(QMainWindow):
     sender_address = ''
@@ -97,39 +100,29 @@ class App(QMainWindow):
 
 
     def attendance_on_click(self):
-        fname = QFileDialog.getOpenFileName(self, 'Open file', '/home')
-        filename = pathsplit(fname[0])
-        App.attended_ID = read_attendance_file.attended(fname[0])
+        fname = QFileDialog.getOpenFileName(self, 'Open file')
+        filename = find_path.pathsplit(fname[0])
+        App.attended_ID = excel_parse.read_attendance(fname[0])
         self.att_text.setText(filename)
 
 
     def master_on_click(self):
         fname = QFileDialog.getOpenFileName(self, 'Open file')
-        filename = pathsplit(fname[0])
-        App.master_information = read_master_file.master(fname[0])
+        filename = find_path.pathsplit(fname[0])
+        App.master_information = excel_parse.read_master(fname[0])
         self.mast_text.setText(filename)
 
     def populate_fields(self):
         App.sender_address = self.address_text.text()
         App.password = self.pass_text.text()
         App.subject = self. subject_text.text()
-        App.text_body = self.body_text.text()
+        App.body_text = self.body_text.text()
 
     def run_program(self):
         self.populate_fields()
         non_attendants = find_non_attendants.main(App.master_information, App.attended_ID)
-        #TO DO: wrap this in a thread so the GUI wont freeze
-        send_emails.email(sender_address=App.sender_address, password=App.password, subject=App.subject, body_text=App.body_text, non_attendant_students=non_attendants)
-
-""" get the final name of the chosen file through filepath"""
-
-def pathsplit(url):
-    url = url
-    url = url.split('/')
-    length = len(url)
-    index = length - 1
-    filepath = url[index]
-    return filepath
+        email_thread = threading.Thread(target=send_emails.email(sender_address=App.sender_address, password=App.password, subject=App.subject, body_text=App.body_text, non_attendant_students=non_attendants))
+        email_thread.start()
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

@@ -1,4 +1,3 @@
-import find_non_attendants
 import smtplib  # import smtplib to send email
 
 # create a text/plain message

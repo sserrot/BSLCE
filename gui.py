@@ -10,7 +10,7 @@ $ run_program
 
 import sys
 import threading
-from PyQt5.QtWidgets import QLineEdit, QPushButton, QFileDialog, QApplication, QMainWindow, QTextEdit, QLabel
+from PyQt5.QtWidgets import QLineEdit, QPushButton, QFileDialog, QApplication, QMainWindow, QTextEdit, QLabel, QPlainTextEdit
 import find_non_attendants
 import excel_parse
 import send_emails
@@ -65,33 +65,35 @@ class App(QMainWindow):
         self.body_label.setText("Email Body")
         self.body_label.move(145, 240)
 
-        self.body_text = QLineEdit(self)
+        self.body_text = QPlainTextEdit(self)
+        self.body_text.setMinimumHeight(150)
+        self.body_text.setMinimumWidth(250)
         self.body_text.move(250, 240)
 
         # Attendance excel file
         att_button = QPushButton('Attendance File', self)
         att_button.setToolTip('Open Attendance File')
-        att_button.move(145, 310)
+        att_button.move(145, 400)
         att_button.clicked.connect(self.attendance_on_click)
 
         self.att_text = QTextEdit(self)
         self.att_text.setReadOnly(True)
-        self.att_text.move(250, 310)
+        self.att_text.move(250, 400)
 
         # Master excel file
         mast_button = QPushButton('Master File', self)
         mast_button.setToolTip('Open Master File')
-        mast_button.move(145, 370)
+        mast_button.move(145, 460)
         mast_button.clicked.connect(self.master_on_click)
 
         self.mast_text = QTextEdit(self)
         self.mast_text.setReadOnly(True)
-        self.mast_text.move(250, 370)
+        self.mast_text.move(250, 460)
 
         # run Program
         non_att_button = QPushButton('Run Program', self)
         non_att_button.setToolTip('Open Master File')
-        non_att_button.move(250, 430)
+        non_att_button.move(250, 500)
         non_att_button.clicked.connect(self.run_program)
 
         self.setGeometry(300, 300, 600, 600)
@@ -116,7 +118,7 @@ class App(QMainWindow):
         App.sender_address = self.address_text.text()
         App.password = self.pass_text.text()
         App.subject = self. subject_text.text()
-        App.body_text = self.body_text.text()
+        App.body_text = self.body_text.toPlainText()
 
     def run_program(self):
         self.populate_fields()

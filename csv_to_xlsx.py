@@ -1,7 +1,7 @@
 import csv
 import time
 from openpyxl import Workbook
-from openpyxl.cell import get_column_letter
+from openpyxl.utils import get_column_letter
 
 def main(filepath):
     f = open(filepath)
